@@ -20,21 +20,26 @@
             <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
               <mat-label>Nome do estabelecimento</mat-label>
               <input formControlName="name" matInput placeholder="Nome do estabelecimento">
-              <mat-error *ngIf="name?.hasError('required')">Campo obrigatório</mat-error>
+              @if (name?.hasError('required')) {
+                <mat-error>Campo obrigatório</mat-error>
+              }
               <mat-hint>O nome do seu restaurante ou lanchonete</mat-hint>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
               <mat-label>CNPJ</mat-label>
               <input formControlName="cnpj" matInput placeholder="CNPJ">
-              <mat-error *ngIf="cnpj?.hasError('required')">Campo obrigatório</mat-error>
+              @if (cnpj?.hasError('required')) {
+                <mat-error>Campo obrigatório</mat-error>
+              }
             </mat-form-field>
 
           </div>
           <div class="flex flex-row">
             <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
               <mat-label>Descrição</mat-label>
-              <textarea formControlName="description" class="resize-none" matInput placeholder="Conte um pouco sobre seu estabelecimento"></textarea>
+              <textarea formControlName="description" class="resize-none" matInput
+                        placeholder="Conte um pouco sobre seu estabelecimento"></textarea>
             </mat-form-field>
           </div>
 
@@ -57,12 +62,16 @@
           <mat-form-field appearance="outline" class="m-2 flex-initial">
             <mat-label>CEP</mat-label>
             <input formControlName="zipcode" mask="00000-000" matInput placeholder="CEP" (focusout)="getAddress()">
-            <mat-error *ngIf="zipcode?.hasError('required')">Campo obrigatório</mat-error>
+            @if (zipcode?.hasError('required')) {
+              <mat-error>Campo obrigatório</mat-error>
+            }
           </mat-form-field>
           <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
             <mat-label>Rua</mat-label>
-            <input formControlName="street" matInput placeholder="Rua">
-            <mat-error *ngIf="street?.hasError('required')">Campo obrigatório</mat-error>
+            <input formControlName="street" matInput placeholder="Rua">\
+            @if (street?.hasError('required')) {
+              <mat-error>Campo obrigatório</mat-error>
+            }
           </mat-form-field>
           <mat-form-field appearance="outline" class="m-2 flex-initial">
             <mat-label>Número</mat-label>
@@ -84,12 +93,16 @@
           <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
             <mat-label>Cidade</mat-label>
             <input formControlName="city" matInput placeholder="Cidade">
-            <mat-error *ngIf="city?.hasError('required')">Campo obrigatório</mat-error>
+            @if (city?.hasError('required')) {
+              <mat-error>Campo obrigatório</mat-error>
+            }
           </mat-form-field>
           <mat-form-field appearance="outline" class="m-2 flex-initial">
             <mat-label>Estado</mat-label>
             <input formControlName="state" matInput placeholder="Estado">
-            <mat-error *ngIf="state?.hasError('required')">Campo obrigatório</mat-error>
+            @if (state?.hasError('required')) {
+              <mat-error>Campo obrigatório</mat-error>
+            }
           </mat-form-field>
         </div>
       </section>
@@ -108,33 +121,38 @@
       <section class="flex flex-col">
         <div class="flex flex-row justify-center">
           <div class="flex flex-col">
-            <mat-chip-listbox class="mat-mdc-chip-set-stacked" *ngFor="let day of daysOfWeek">
-              <div class="flex flex-col">
-                <mat-chip-option #option (selectionChange)="selectDay(day, $event)">{{ day }}</mat-chip-option>
+            @for (day of daysOfWeek; track $index) {
+              <mat-chip-listbox class="mat-mdc-chip-set-stacked">
+                <div class="flex flex-col">
+                  <mat-chip-option #option (selectionChange)="selectDay(day, $event)">{{ day }}</mat-chip-option>
+                  @if (option.selected) {
+                    <div class="flex flex-col my-4">
+                      <div class="flex flex-row justify-between items-baseline">
+                        <mat-form-field appearance="outline" class="ml-4 ms-flex-auto w-full">
+                          <mat-label>Horário de início</mat-label>
+                          <input matInput placeholder="Horário" aria-label="24hr format" [ngxTimepicker]="start"
+                                 [format]="24"
+                                 readonly>
+                          <ngx-material-timepicker #start></ngx-material-timepicker>
+                        </mat-form-field>
 
-                <div class="flex flex-col my-4" *ngIf="option.selected">
-                  <div class="flex flex-row justify-between items-baseline">
-                    <mat-form-field appearance="outline" class="ml-4 ms-flex-auto w-full">
-                      <mat-label>Horário de início</mat-label>
-                      <input matInput placeholder="Horário" aria-label="24hr format" [ngxTimepicker]="start"
-                             [format]="24"
-                             readonly>
-                      <ngx-material-timepicker #start></ngx-material-timepicker>
-                    </mat-form-field>
+                        <span class="ml-4">à</span>
 
-                    <span class="ml-4">à</span>
-
-                    <mat-form-field appearance="outline" class="ml-4 flex-auto w-full">
-                      <mat-label>Horário de término</mat-label>
-                      <input matInput placeholder="Horário" aria-label="24hr format" [ngxTimepicker]="end" [format]="24"
-                             readonly>
-                      <ngx-material-timepicker #end></ngx-material-timepicker>
-                    </mat-form-field>
-                  </div>
-                  <button class="ml-4" mat-flat-button color="primary">Adicionar mais um intervalo de horário</button>
+                        <mat-form-field appearance="outline" class="ml-4 flex-auto w-full">
+                          <mat-label>Horário de término</mat-label>
+                          <input matInput placeholder="Horário" aria-label="24hr format" [ngxTimepicker]="end"
+                                 [format]="24"
+                                 readonly>
+                          <ngx-material-timepicker #end></ngx-material-timepicker>
+                        </mat-form-field>
+                      </div>
+                      <button class="ml-4" mat-flat-button color="primary">Adicionar mais um intervalo de horário
+                      </button>
+                    </div>
+                  }
                 </div>
-              </div>
-            </mat-chip-listbox>
+              </mat-chip-listbox>
+            }
           </div>
         </div>
       </section>
