@@ -1,0 +1,11 @@
+<mat-drawer-container class="h-full">
+  <mat-drawer mode="side" opened="true">
+    <ng-material-multilevel-menu [configuration]="menuConfig" [items]="navigationModel">
+    </ng-material-multilevel-menu>
+  </mat-drawer>
+  <mat-drawer-content>
+    <section class="p-3">
+        <router-outlet></router-outlet>
+    </section>
+  </mat-drawer-content>
+</mat-drawer-container>

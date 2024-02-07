@@ -1,0 +1,24 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button>
+    <mat-icon>restaurant_menu</mat-icon>
+  </button>
+  <span class="ms-2">Restaurant Name</span>
+  <span class="flex-auto"></span>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="account/">
+      <mat-icon>person</mat-icon>
+      Perfil
+    </button>
+    <button mat-menu-item>
+      <mat-icon>settings</mat-icon>
+      Configurações
+    </button>
+    <button mat-menu-item>
+      <mat-icon>exit_to_app</mat-icon>
+      Sair
+    </button>
+  </mat-menu>
+</mat-toolbar>
