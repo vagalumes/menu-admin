@@ -1,5 +1,5 @@
-<mat-accordion>
-  <form [formGroup]="accountForm">
+<form [formGroup]="accountForm">
+  <mat-accordion>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -118,46 +118,14 @@
           <mat-icon>schedule</mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <section class="flex flex-col">
-        <div class="flex flex-row justify-center">
-          <div class="flex flex-col">
-            @for (day of daysOfWeek; track $index) {
-              <mat-chip-listbox class="mat-mdc-chip-set-stacked">
-                <div class="flex flex-col">
-                  <mat-chip-option #option (selectionChange)="selectDay(day, $event)">{{ day }}</mat-chip-option>
-                  @if (option.selected) {
-                    <div class="flex flex-col my-4">
-                      <div class="flex flex-row justify-between items-baseline">
-                        <mat-form-field appearance="outline" class="ml-4 ms-flex-auto w-full">
-                          <mat-label>Horário de início</mat-label>
-                          <input matInput placeholder="Horário" aria-label="24hr format" [ngxTimepicker]="start"
-                                 [format]="24"
-                                 readonly>
-                          <ngx-material-timepicker #start></ngx-material-timepicker>
-                        </mat-form-field>
 
-                        <span class="ml-4">à</span>
-
-                        <mat-form-field appearance="outline" class="ml-4 flex-auto w-full">
-                          <mat-label>Horário de término</mat-label>
-                          <input matInput placeholder="Horário" aria-label="24hr format" [ngxTimepicker]="end"
-                                 [format]="24"
-                                 readonly>
-                          <ngx-material-timepicker #end></ngx-material-timepicker>
-                        </mat-form-field>
-                      </div>
-                      <button class="ml-4" mat-flat-button color="primary">Adicionar mais um intervalo de horário
-                      </button>
-                    </div>
-                  }
-                </div>
-              </mat-chip-listbox>
-            }
-          </div>
-        </div>
+      <section>
+            <app-service-hours></app-service-hours>
       </section>
+
     </mat-expansion-panel>
-  </form>
-</mat-accordion>
+  </mat-accordion>
+</form>
+
 
 

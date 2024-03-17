@@ -1,0 +1,39 @@
+<div [formGroup]="serviceHoursForm">
+  <section formArrayName="serviceHours" class="flex flex-col">
+    @for (group of serviceHours.controls; track $index) {
+      <div formGroupName="{{$index}}" class="flex flex-row items-baseline">
+        <mat-checkbox (change)="changeScheduleFieldsState($event, group)" formControlName="workDay"
+                      class="flex-initial w-1/12">{{ group.get('day')?.value }}
+        </mat-checkbox>
+        <mat-form-field appearance="outline" class="mx-2 flex-initial max-w-52">
+          <mat-label>Início</mat-label>
+          <input formControlName="start" mask="00:00" matInput placeholder="Início">
+        </mat-form-field>
+        <span> - </span>
+        <mat-form-field appearance="outline" class="mx-2 flex-initial max-w-52">
+          <mat-label>Fim</mat-label>
+          <input formControlName="end" mask="00:00" matInput placeholder="Fim">
+          <button [disabled]="!group.get('workDay')?.value" matSuffix mat-icon-button
+                  matTooltip="Adicionar outro intervalo de horário">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-form-field>
+        <!--        <mat-checkbox formControlName="day" class="flex-initial w-1/12">{{ group.get('day')?.value }}-->
+        <!--        </mat-checkbox>-->
+        <!--        <mat-form-field appearance="outline" class="mx-2 flex-initial max-w-52">-->
+        <!--          <mat-label>Início</mat-label>-->
+        <!--          <input formControlName="start" mask="00:00" matInput placeholder="Início">-->
+        <!--        </mat-form-field>-->
+        <!--        <span> - </span>-->
+        <!--        <mat-form-field appearance="outline" class="mx-2 flex-initial max-w-52">-->
+        <!--          <mat-label>Fim</mat-label>-->
+        <!--          <input formControlName="end" mask="00:00" matInput placeholder="Fim">-->
+        <!--          <button [disabled]="!group.get('workDay')?.value" matSuffix mat-icon-button-->
+        <!--                  matTooltip="Adicionar outro intervalo de horário">-->
+        <!--            <mat-icon>add</mat-icon>-->
+        <!--          </button>-->
+        <!--        </mat-form-field>-->
+      </div>
+    }
+  </section>
+</div>

@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 import {MatChipSelectionChange} from "@angular/material/chips";
 import {AddressService} from "../services/address.service";
-import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MatCheckboxChange} from "@angular/material/checkbox";
 
 @Component({
   selector: 'app-account',
@@ -9,7 +10,6 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/form
   styleUrls: ['./account.component.scss']
 })
 export class AccountComponent {
-  daysOfWeek: string[] = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
   accountForm: FormGroup;
 
   constructor(private addressService: AddressService, formBuilder: FormBuilder) {
@@ -76,5 +76,4 @@ export class AccountComponent {
   get street(): AbstractControl | null {
     return this.accountForm.get('address.street');
   }
-
 }

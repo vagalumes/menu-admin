@@ -3,4 +3,19 @@ mat-accordion {
     justify-content: space-between;
     align-items: center;
   }
+
+  div.visualization-example {
+    border-radius: 4px;
+    border-right: 1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+    border-top: 1px solid #e0e0e0;
+
+    span {
+      display: block;
+      padding: 3px;
+      border-bottom: 1px solid #e0e0e0;
+      border-left: none;
+      border-right: none;
+    }
+  }
 }
