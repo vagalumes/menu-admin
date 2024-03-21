@@ -13,27 +13,33 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatTooltip} from "@angular/material/tooltip";
 import {ServiceHoursComponent} from "./account/components/service-hours/service-hours.component";
+import {
+    RestaurantInformationComponent
+} from "./account/components/restaurant-information/restaurant-information.component";
+import {RestaurantAddressComponent} from "./account/components/restaurant-address/restaurant-address.component";
 
 @NgModule({
   declarations: [
     AccountComponent
   ],
-    imports: [
-        AccountRoutingModule,
-        MatIconModule,
-        MatInputModule,
-        MatChipsModule,
-        NgForOf,
-        NgIf,
-        MatButtonModule,
-        MatExpansionModule,
-        NgxMaskDirective,
-        ReactiveFormsModule,
-        HttpClientModule,
-        MatCheckbox,
-        MatTooltip,
-        ServiceHoursComponent
-    ],
+  imports: [
+    AccountRoutingModule,
+    MatIconModule,
+    MatInputModule,
+    MatChipsModule,
+    NgForOf,
+    NgIf,
+    MatButtonModule,
+    MatExpansionModule,
+    NgxMaskDirective,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatCheckbox,
+    MatTooltip,
+    ServiceHoursComponent,
+    RestaurantInformationComponent,
+    RestaurantAddressComponent
+  ],
 })
 export class AccountModule {
 }

@@ -1,0 +1,35 @@
+<form class="flex flex-col items-stretch" [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+  <section class="p-3 flex flex-row items-center justify-center">
+    <app-avatar formControlName="image"></app-avatar>
+  </section>
+  <section>
+    <div class="flex flex-row">
+      <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
+        <mat-label>Nome do estabelecimento</mat-label>
+        <input formControlName="name" matInput placeholder="Nome do estabelecimento">
+        @if (name?.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+        <mat-hint>O nome do seu restaurante ou lanchonete</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
+        <mat-label>CNPJ</mat-label>
+        <input formControlName="cnpj" matInput placeholder="CNPJ" mask="00.000.000/0000-00">
+        @if (cnpj?.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+
+    </div>
+    <div class="flex flex-row">
+      <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
+        <mat-label>Descrição</mat-label>
+        <textarea formControlName="description" class="resize-none" matInput
+                  placeholder="Conte um pouco sobre seu estabelecimento"></textarea>
+      </mat-form-field>
+    </div>
+
+    <button type="submit">Enviar</button>
+  </section>
+</form>

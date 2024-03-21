@@ -1,23 +1,41 @@
 <div [formGroup]="serviceHoursForm">
   <section formArrayName="serviceHours" class="flex flex-col">
-    @for (group of serviceHours.controls; track $index) {
-      <div formGroupName="{{$index}}" class="flex flex-row items-baseline">
-        <mat-checkbox (change)="changeScheduleFieldsState($event, group)" formControlName="workDay"
-                      class="flex-initial w-1/12">{{ group.get('day')?.value }}
+    @for (serviceHour of serviceHours.controls; track serviceHour; let serviceHourIndex = $index) {
+      <div formGroupName="{{serviceHourIndex}}" class="flex flex-row items-baseline">
+        <mat-checkbox #checkbox formControlName="workDay"
+                      class="flex-initial w-1/12"
+                      (change)="onCheckBoxChange($event, serviceHour)"
+        >{{ serviceHour.get('day')?.value }}
         </mat-checkbox>
-        <mat-form-field appearance="outline" class="mx-2 flex-initial max-w-52">
-          <mat-label>Início</mat-label>
-          <input formControlName="start" mask="00:00" matInput placeholder="Início">
-        </mat-form-field>
-        <span> - </span>
-        <mat-form-field appearance="outline" class="mx-2 flex-initial max-w-52">
-          <mat-label>Fim</mat-label>
-          <input formControlName="end" mask="00:00" matInput placeholder="Fim">
-          <button [disabled]="!group.get('workDay')?.value" matSuffix mat-icon-button
-                  matTooltip="Adicionar outro intervalo de horário">
-            <mat-icon>add</mat-icon>
-          </button>
-        </mat-form-field>
+        <ng-container formArrayName="hours">
+          @for (hour of getHours(serviceHour).controls; track hour; let hourIndex = $index) {
+            <section formGroupName="{{hourIndex}}">
+              <mat-form-field appearance="outline" class="mx-2 flex-initial max-w-52">
+                <mat-label>Início</mat-label>
+                <input formControlName="start" mask="00:00" matInput placeholder="Início">
+              </mat-form-field>
+              <span class="font-bold"> - </span>
+              <mat-form-field appearance="outline" class="mx-2 flex-initial max-w-52">
+                <mat-label>Fim</mat-label>
+                <input formControlName="end" mask="00:00" matInput placeholder="Fim">
+                @if (getHours(serviceHour).controls.length < 2) {
+                  <button [disabled]="!checkbox.checked" matSuffix mat-icon-button
+                          matTooltip="Adicionar outro intervalo de horário"
+                          (click)="addHourInterval(serviceHour)">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                } @else if (getHours(serviceHour).controls.length >= 2 && getHours(serviceHour).controls.indexOf(hour) !== 0) {
+                  <button [disabled]="!checkbox.checked" matSuffix mat-icon-button
+                          matTooltip="Remover intervalo de horário"
+                          (click)="removeHourInterval(serviceHour)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                }
+              </mat-form-field>
+            </section>
+          }
+        </ng-container>
+
         <!--        <mat-checkbox formControlName="day" class="flex-initial w-1/12">{{ group.get('day')?.value }}-->
         <!--        </mat-checkbox>-->
         <!--        <mat-form-field appearance="outline" class="mx-2 flex-initial max-w-52">-->

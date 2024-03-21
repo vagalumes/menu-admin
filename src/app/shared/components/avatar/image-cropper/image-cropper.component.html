@@ -1,0 +1,21 @@
+<div>
+  <header class="flex flex-row justify-between items-center">
+    <h2 mat-dialog-title>Recorte a sua imagem</h2>
+    <button mat-icon-button class="mr-1.5" (click)="dialogRef.close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </header>
+  <mat-dialog-content>
+    <img id="image" width="400" height="400" [src]="sanitizedUrl" alt="Image">
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <div class="flex flex-row justify-end w-full">
+      <button mat-flat-button (click)="reset()">
+        Redefinir
+      </button>
+      <button color="primary" mat-flat-button (click)="crop()">
+        Selecionar
+      </button>
+    </div>
+  </mat-dialog-actions>
+</div>

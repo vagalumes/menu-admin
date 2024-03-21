@@ -28,34 +28,60 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 })
 export class ServiceHoursComponent {
   daysOfWeek: string[] = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-  serviceHoursForm: FormGroup
+  serviceHoursForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
-    this.serviceHoursForm = formBuilder.group({
-      serviceHours: formBuilder.array(this.daysOfWeek.map((day, index) =>
+    this.serviceHoursForm = this.formBuilder.group({
+      serviceHours: this.formBuilder.array(this.daysOfWeek.map(day =>
         this.formBuilder.group({
           day: [day],
           workDay: [false],
-          start: [{value: '', disabled: true}],
-          end: [{value: '', disabled: true}]
+          hours: this.formBuilder.array([
+            this.formBuilder.group({
+              start: [{value: '', disabled: true}],
+              end: [{value: '', disabled: true}]
+            })
+          ])
         })
       ))
     })
   }
 
-  changeScheduleFieldsState($event: MatCheckboxChange, formGroup: AbstractControl) {
-    if ($event.checked) {
-      formGroup.enable();
+  addHourInterval(serviceHoursControl: AbstractControl): void {
+    const hoursArray = serviceHoursControl.get('hours') as FormArray;
+
+    hoursArray.push(this.formBuilder.group({
+        start: [],
+        end: []
+      })
+    );
+  }
+
+  onCheckBoxChange($event: MatCheckboxChange, serviceHoursControl: AbstractControl): void {
+    const hoursControl = serviceHoursControl.get('hours') as FormArray;
+    if (!$event.checked) {
+      this.removeHourInterval(serviceHoursControl);
+      hoursControl.reset();
+      hoursControl.disable();
       return;
     }
-    formGroup.get('start')?.disable();
-    formGroup.get('end')?.disable();
-    formGroup.get('start2')?.disable();
-    formGroup.get('end2')?.disable();
+
+    const hoursFormGroup = hoursControl.controls[0];
+
+    hoursFormGroup.enable();
+  }
+
+  removeHourInterval(serviceHoursControl: AbstractControl): void {
+    const hoursArray = serviceHoursControl.get('hours') as FormArray;
+
+    hoursArray.removeAt(1)
+  }
+
+  getHours(serviceHoursControl: AbstractControl): FormArray {
+    return serviceHoursControl.get('hours') as FormArray;
   }
 
   get serviceHours(): FormArray {
-    return this.serviceHoursForm.get('serviceHours') as FormArray
+    return this.serviceHoursForm.get('serviceHours') as FormArray;
   }
-
 }

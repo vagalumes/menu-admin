@@ -1,131 +1,46 @@
-<form [formGroup]="accountForm">
-  <mat-accordion>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Informações do Restaurante
-        </mat-panel-title>
-        <mat-panel-description>
-          Imagem, nome do estabelecimento, CNPJ, descrição
-          <mat-icon>account_circle</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Informações do restaurante
+      </mat-panel-title>
+      <mat-panel-description>
+        Imagem, nome do estabelecimento, CNPJ, descrição
+        <mat-icon>account_circle</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
 
-      <section class="flex flex-col items-stretch">
-        <section class="p-3">
-          Perfil Image Settings
-        </section>
-        <section class="">
-          <div class="flex flex-row">
-            <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
-              <mat-label>Nome do estabelecimento</mat-label>
-              <input formControlName="name" matInput placeholder="Nome do estabelecimento">
-              @if (name?.hasError('required')) {
-                <mat-error>Campo obrigatório</mat-error>
-              }
-              <mat-hint>O nome do seu restaurante ou lanchonete</mat-hint>
-            </mat-form-field>
+    <app-restaurant-information></app-restaurant-information>
+  </mat-expansion-panel>
 
-            <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
-              <mat-label>CNPJ</mat-label>
-              <input formControlName="cnpj" matInput placeholder="CNPJ">
-              @if (cnpj?.hasError('required')) {
-                <mat-error>Campo obrigatório</mat-error>
-              }
-            </mat-form-field>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Endereço
+      </mat-panel-title>
+      <mat-panel-description>
+        Localização do estabelecimento
+        <mat-icon>location_on</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-restaurant-address></app-restaurant-address>
+  </mat-expansion-panel>
 
-          </div>
-          <div class="flex flex-row">
-            <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
-              <mat-label>Descrição</mat-label>
-              <textarea formControlName="description" class="resize-none" matInput
-                        placeholder="Conte um pouco sobre seu estabelecimento"></textarea>
-            </mat-form-field>
-          </div>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Horário de funcionamento
+      </mat-panel-title>
+      <mat-panel-description>
+        Horário de funcionamento do estabelecimento
+        <mat-icon>schedule</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
 
-        </section>
-      </section>
-    </mat-expansion-panel>
+    <app-service-hours></app-service-hours>
 
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Endereço
-        </mat-panel-title>
-        <mat-panel-description>
-          Localização do estabelecimento
-          <mat-icon>location_on</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <section class="flex flex-col" formGroupName="address">
-        <div class="flex flex-row">
-          <mat-form-field appearance="outline" class="m-2 flex-initial">
-            <mat-label>CEP</mat-label>
-            <input formControlName="zipcode" mask="00000-000" matInput placeholder="CEP" (focusout)="getAddress()">
-            @if (zipcode?.hasError('required')) {
-              <mat-error>Campo obrigatório</mat-error>
-            }
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
-            <mat-label>Rua</mat-label>
-            <input formControlName="street" matInput placeholder="Rua">
-            @if (street?.hasError('required')) {
-              <mat-error>Campo obrigatório</mat-error>
-            }
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="m-2 flex-initial">
-            <mat-label>Número</mat-label>
-            <input formControlName="number" matInput placeholder="Número">
-          </mat-form-field>
-
-        </div>
-        <div class="flex flex-row">
-          <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
-            <mat-label>Complemento</mat-label>
-            <input formControlName="complement" matInput placeholder="Complemento">
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
-            <mat-label>Bairro</mat-label>
-            <input formControlName="neighborhood" matInput placeholder="Bairro">
-          </mat-form-field>
-        </div>
-        <div class="flex flex-row">
-          <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
-            <mat-label>Cidade</mat-label>
-            <input formControlName="city" matInput placeholder="Cidade">
-            @if (city?.hasError('required')) {
-              <mat-error>Campo obrigatório</mat-error>
-            }
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="m-2 flex-initial">
-            <mat-label>Estado</mat-label>
-            <input formControlName="state" matInput placeholder="Estado">
-            @if (state?.hasError('required')) {
-              <mat-error>Campo obrigatório</mat-error>
-            }
-          </mat-form-field>
-        </div>
-      </section>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Horário de funcionamento
-        </mat-panel-title>
-        <mat-panel-description>
-          Horário de funcionamento do estabelecimento
-          <mat-icon>schedule</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <section>
-            <app-service-hours></app-service-hours>
-      </section>
-
-    </mat-expansion-panel>
-  </mat-accordion>
-</form>
+  </mat-expansion-panel>
+</mat-accordion>
 
 
 

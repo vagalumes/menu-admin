@@ -20,8 +20,10 @@
     "@angular/platform-browser": "^17.1.2",
     "@angular/platform-browser-dynamic": "^17.1.2",
     "@angular/router": "^17.1.2",
+    "cropperjs": "^1.6.1",
     "ng-material-multilevel-menu": "^6.0.2",
     "ngx-mask": "^17.0.4",
+    "ngx-skeleton-loader": "^9.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

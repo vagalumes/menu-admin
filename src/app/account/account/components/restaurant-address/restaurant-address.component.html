@@ -1,0 +1,60 @@
+<form class="flex flex-col" [formGroup]="addressForm">
+
+
+  @if (isLoading) {
+    <ngx-skeleton-loader count="3" appearance="line" [theme]="{height: '50px'}" animation="pulse"></ngx-skeleton-loader>
+  } @else {
+    <div class="flex flex-row">
+      <mat-form-field appearance="outline" class="m-2 flex-initial">
+        <mat-label>CEP</mat-label>
+        <input formControlName="zipcode" mask="00000-000" matInput placeholder="CEP" (focusout)="getAddress()">
+        @if (zipcode?.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
+        <mat-label>Rua</mat-label>
+        <input formControlName="street" matInput placeholder="Rua">
+        @if (street?.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="m-2 flex-initial">
+        <mat-label>Número</mat-label>
+        <input formControlName="number" matInput placeholder="Número">
+      </mat-form-field>
+
+    </div>
+    <div class="flex flex-row">
+      <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
+        <mat-label>Complemento</mat-label>
+        <input formControlName="complement" matInput placeholder="Complemento">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
+        <mat-label>Bairro</mat-label>
+        <input formControlName="neighborhood" matInput placeholder="Bairro">
+      </mat-form-field>
+    </div>
+    <div class="flex flex-row">
+      <mat-form-field appearance="outline" class="m-2 flex-auto w-full">
+        <mat-label>Cidade</mat-label>
+        <input formControlName="city" matInput placeholder="Cidade">
+        @if (city?.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="m-2 flex-initial">
+        <mat-label>Estado</mat-label>
+        <input [matAutocomplete]="auto" formControlName="state" matInput placeholder="Estado">
+        <mat-autocomplete #auto="matAutocomplete">
+          @for (state of statesOptions | async; track state) {
+            <mat-option [value]="state">{{ state }}</mat-option>
+          }
+        </mat-autocomplete>
+        @if (state?.hasError('required')) {
+          <mat-error>Campo obrigatório</mat-error>
+        }
+      </mat-form-field>
+    </div>
+  }
+</form>
