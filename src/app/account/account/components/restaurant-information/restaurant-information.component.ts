@@ -1,9 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {MatError, MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AvatarComponent} from "../../../../shared/components/avatar/avatar.component";
 import {NgxMaskDirective} from "ngx-mask";
+import {MatButton} from "@angular/material/button";
+import {MatExpansionPanelActionRow} from "@angular/material/expansion";
 
 @Component({
   selector: 'app-restaurant-information',
@@ -16,12 +18,15 @@ import {NgxMaskDirective} from "ngx-mask";
     MatLabel,
     ReactiveFormsModule,
     AvatarComponent,
-    NgxMaskDirective
+    NgxMaskDirective,
+    MatButton,
+    MatExpansionPanelActionRow
   ],
   templateUrl: './restaurant-information.component.html',
   styleUrl: './restaurant-information.component.scss'
 })
 export class RestaurantInformationComponent {
+  @Output() formResult = new EventEmitter<object>();
   accountForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
@@ -34,7 +39,7 @@ export class RestaurantInformationComponent {
   }
 
   onSubmit(): void {
-    console.log(this.accountForm.value)
+    this.formResult.emit(this.accountForm.value);
   }
 
   get name(): AbstractControl | null {

@@ -1,5 +1,5 @@
 <mat-accordion>
-  <mat-expansion-panel>
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Informações do restaurante
@@ -9,11 +9,10 @@
         <mat-icon>account_circle</mat-icon>
       </mat-panel-description>
     </mat-expansion-panel-header>
-
-    <app-restaurant-information></app-restaurant-information>
+    <app-restaurant-information (formResult)="restaurantInfoSubmit($event)"></app-restaurant-information>
   </mat-expansion-panel>
 
-  <mat-expansion-panel>
+  <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Endereço
@@ -23,10 +22,10 @@
         <mat-icon>location_on</mat-icon>
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <app-restaurant-address></app-restaurant-address>
+    <app-restaurant-address (formResult)="restaurantAddressSubmit($event)"></app-restaurant-address>
   </mat-expansion-panel>
 
-  <mat-expansion-panel>
+  <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Horário de funcionamento
@@ -36,9 +35,7 @@
         <mat-icon>schedule</mat-icon>
       </mat-panel-description>
     </mat-expansion-panel-header>
-
-    <app-service-hours></app-service-hours>
-
+    <app-service-hours (formResult)="restaurantServiceHours($event)"></app-service-hours>
   </mat-expansion-panel>
 </mat-accordion>
 

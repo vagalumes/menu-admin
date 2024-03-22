@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {NgxMaskDirective} from "ngx-mask";
@@ -9,6 +9,8 @@ import {finalize, map, Observable, startWith} from "rxjs";
 import {BrazilStates} from "../../../../constants/states";
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
 import {AsyncPipe} from "@angular/common";
+import {MatExpansionModule, MatExpansionPanelActionRow} from "@angular/material/expansion";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-restaurant-address',
@@ -24,7 +26,9 @@ import {AsyncPipe} from "@angular/common";
     MatAutocomplete,
     MatOption,
     MatAutocompleteTrigger,
-    AsyncPipe
+    AsyncPipe,
+    MatExpansionModule,
+    MatButton
   ],
   templateUrl: './restaurant-address.component.html',
   styleUrl: './restaurant-address.component.scss'
@@ -33,6 +37,8 @@ export class RestaurantAddressComponent implements OnInit {
   isLoading = false;
   addressForm: FormGroup;
   statesOptions!: Observable<string[]>;
+  @Output() formResult = new EventEmitter<object>();
+  protected readonly BrazilStates = BrazilStates;
 
   constructor(private formBuilder: FormBuilder, private addressService: AddressService) {
     this.addressForm = this.formBuilder.group({
@@ -51,6 +57,10 @@ export class RestaurantAddressComponent implements OnInit {
       startWith(''),
       map(value => this._filterStates(value || '')),
     );
+  }
+
+  onSubmit() {
+    this.formResult.emit(this.addressForm.value);
   }
 
   getAddress(): void {
@@ -95,6 +105,4 @@ export class RestaurantAddressComponent implements OnInit {
   get street(): AbstractControl | null {
     return this.addressForm.get('street');
   }
-
-  protected readonly BrazilStates = BrazilStates;
 }

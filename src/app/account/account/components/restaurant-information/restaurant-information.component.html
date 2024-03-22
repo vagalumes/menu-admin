@@ -1,5 +1,5 @@
 <form class="flex flex-col items-stretch" [formGroup]="accountForm" (ngSubmit)="onSubmit()">
-  <section class="p-3 flex flex-row items-center justify-center">
+  <section class="p-5 flex flex-row items-center justify-center">
     <app-avatar formControlName="image"></app-avatar>
   </section>
   <section>
@@ -29,7 +29,8 @@
                   placeholder="Conte um pouco sobre seu estabelecimento"></textarea>
       </mat-form-field>
     </div>
-
-    <button type="submit">Enviar</button>
+  </section>
+  <section class="flex flex-row justify-end">
+    <button type="submit" color="primary" mat-flat-button>Próximo</button>
   </section>
 </form>

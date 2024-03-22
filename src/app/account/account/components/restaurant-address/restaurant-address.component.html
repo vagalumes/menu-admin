@@ -1,8 +1,7 @@
-<form class="flex flex-col" [formGroup]="addressForm">
-
-
+<form class="flex flex-col" [formGroup]="addressForm" (ngSubmit)="onSubmit()">
   @if (isLoading) {
-    <ngx-skeleton-loader count="3" appearance="line" [theme]="{height: '50px'}" animation="pulse"></ngx-skeleton-loader>
+    <ngx-skeleton-loader count="3" appearance="line" [theme]="{height: '50px'}"
+                         animation="pulse"></ngx-skeleton-loader>
   } @else {
     <div class="flex flex-row">
       <mat-form-field appearance="outline" class="m-2 flex-initial">
@@ -57,4 +56,8 @@
       </mat-form-field>
     </div>
   }
+  <section class="flex flex-row justify-end">
+    <button type="submit" color="primary" mat-flat-button>Próximo</button>
+  </section>
 </form>
+

@@ -98,6 +98,4 @@ export class ImageCropperComponent implements OnInit, AfterViewInit {
     this.cropper.clear();
     this.cropper.crop();
   }
-
-  protected readonly data = data;
 }
